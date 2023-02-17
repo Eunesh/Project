@@ -46,11 +46,11 @@ function Header() {
                     Membership
                   </NavLink>
 
-                  <a
-                    className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                  <NavLink to="/Logout"
+                    className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
                   >
-                    Reports
-                  </a>
+                    Logout
+                  </NavLink>
                 </div>
               </div>
             </div>

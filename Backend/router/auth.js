@@ -94,6 +94,11 @@ router.get('/membership', authenticate , (req,res)=>{
   
 })
 
+router.get('/logout', (req,res)=>{
+    res.clearCookie('jwtoken', { path: '/'})
+    res.status(200).send('UserLogout')
+  
+})
 module.exports= router;
 
 

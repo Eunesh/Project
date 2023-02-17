@@ -8,6 +8,7 @@ import Footer from './pages/Footer/footer';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Membership from './pages/Membership';
+import Logout from './pages/Logout';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signUp"  component={Signup} />
         <Route path="/Login" component={Login}/>
         <Route path="/Membership" component={Membership}/>
+        <Route path="/Logout" component={Logout}/>
       </Switch>
       {/* <Header/>
       <Home/>

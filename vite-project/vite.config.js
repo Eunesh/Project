@@ -8,6 +8,7 @@ export default defineConfig({
       '/login': 'http://localhost:3000',
       '/register': 'http://localhost:3000',
       '/membership': 'http://localhost:3000',
+      '/logout': 'http://localhost:3000',
     }
 
   },
