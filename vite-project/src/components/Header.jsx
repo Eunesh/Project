@@ -1,11 +1,125 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import logo from '../Photos/logo.png'
+import { UserContext } from '../App'
+
+
 
 function Header() {
+  const {state, dispatch} = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
+   
+  const RenderMenu = ()=>{
+    if(state){
+      return (
+        <>
+                    <NavLink to="/"
+                      className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Home
+                    </NavLink>
+  
+                    <NavLink to="/Membership"
+                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Membership
+                    </NavLink>
+  
+                    <NavLink to="/Logout"
+                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
+                    >
+                      Logout
+                    </NavLink>
+        </>
+      )
+    }else{
+      return (
+        <>
+                    <NavLink to="/"
+                      className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Home
+                    </NavLink>
+  
+                    <NavLink to="/signUp"
+                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      SignUp
+                    </NavLink>
+  
+                    <NavLink to='/Login' 
+                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Login
+                    </NavLink>
+  
+                    <NavLink to="/Membership"
+                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Membership
+                    </NavLink>
+  
+        </>
+      )
+    }
+  }
+
+  const RenderMenuForMobile = ()=>{
+    if (state) {
+      return(
+        <>
+               <NavLink to="/"
+                  className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Home
+                </NavLink>
+
+                <NavLink to="/Membership"
+                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Membership
+                </NavLink>
+
+                <NavLink to="/Logout"
+                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Logout
+                </NavLink>
+        </>
+      )
+    }else{
+      return(
+        <>
+               <NavLink to="/"
+                  className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Home
+                </NavLink>
+
+                <NavLink to="/login"
+                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Login
+                </NavLink>
+
+                <NavLink to="/signUp"
+                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Signup
+                </NavLink>
+
+                <NavLink to="/Membership" 
+                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Membership
+                </NavLink>
+        </>
+      )
+    }
+  }
+  
   return (
     <div>
       <nav className="bg-neutral-100">
@@ -22,35 +136,7 @@ function Header() {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <NavLink to="/"
-                    className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Home
-                  </NavLink>
-
-                  <NavLink to="/signUp"
-                    className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    SignUp
-                  </NavLink>
-
-                  <NavLink to='/Login' 
-                    className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Login
-                  </NavLink>
-
-                  <NavLink to="/Membership"
-                    className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Membership
-                  </NavLink>
-
-                  <NavLink to="/Logout"
-                    className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
-                  >
-                    Logout
-                  </NavLink>
+                  <RenderMenu/>
                 </div>
               </div>
             </div>
@@ -113,35 +199,7 @@ function Header() {
           {() => (
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <NavLink to="/"
-                  className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Home
-                </NavLink>
-
-                <NavLink to="/login"
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Login
-                </NavLink>
-
-                <a
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Signup
-                </a>
-
-                <a
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Membership
-                </a>
-
-                <a
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Reports
-                </a>
+                <RenderMenuForMobile/>
               </div>
             </div>
           )}

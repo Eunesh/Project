@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import img1 from '../Photos/img1.jpg'
 import { NavLink } from "react-router-dom";
 import {useHistory} from 'react-router-dom';
+import { UserContext } from '../App'
 
 
 const Login = () => {
+  const {state, dispatch} = useContext(UserContext);
   const history = useHistory()
   const [formData, setFormData] = useState({
     email: '',
@@ -38,6 +40,7 @@ const Login = () => {
          console.log(res.status);
 
          if (res.status === 200){
+          dispatch({type:"USER", payload:true})
           history.push('/')
          }else{
           alert("Invalid Credeantials")

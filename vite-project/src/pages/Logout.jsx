@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import axios from "axios";;
 import {useHistory} from 'react-router-dom';
+import { UserContext } from '../App'
+
 
 const Logout = () => {
+  const {state, dispatch} = useContext(UserContext);
     axios.defaults.withCredentials = true //making axios with credentials true for cookies
     const history = useHistory()
     const getLogout = async ()=>{
@@ -15,6 +18,7 @@ const Logout = () => {
             }
             )
             if (res){
+                dispatch({type:"USER", payload:false})
                 history.push('/Login')
 
             }
