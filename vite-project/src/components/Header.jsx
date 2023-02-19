@@ -3,6 +3,8 @@ import { Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import logo from '../Photos/logo.png'
 import { UserContext } from '../App'
+import { useEffect } from "react";
+import {initialState} from "../Reducer/useReducer"
 
 
 
@@ -10,9 +12,28 @@ function Header() {
   const {state, dispatch} = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
+  const data = window.localStorage.getItem('STATUS_OF_LOGIN');
+  const Status = JSON.parse(data)
+  //console.log(Status);
+  //console.log(state)
+
+  //const [LoginState, setLoginState] = useState(state)
+  //console.log(LoginState)
+
+  // useEffect(()=>{
+  //   const data = window.localStorage.getItem('STATUS_OF_LOGIN');
+  //   //RenderMenu();
+  //   //state = (JSON.parse(data))
+  //   console.log(JSON.parse(data));
+
+  // },)
    
-  const RenderMenu = ()=>{
-    if(state){
+  
+  
+
+  
+  const RenderMenu = ()=>{ 
+    if(Status){
       return (
         <>
                     <NavLink to="/"
@@ -67,7 +88,7 @@ function Header() {
   }
 
   const RenderMenuForMobile = ()=>{
-    if (state) {
+    if (Status) {
       return(
         <>
                <NavLink to="/"

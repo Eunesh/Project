@@ -23,8 +23,11 @@ const Routing = ()=>{
 </Switch>
 }
 
+
+
 function App() {
 const [state, dispatch] = useReducer(reducer, initialState);
+
 
   return (
     <div className='bg-neutral-100 text-gray-800 '>

@@ -7,41 +7,7 @@ function Membership() {
   
   axios.defaults.withCredentials = true //making axios with credentials true for cookies
 
-  const [userData, setUserData] = useState();
   const history = useHistory()
-  // const callMembership = async () =>{
-  //   try{
-  //     const res = fetch('/membership', {
-  //       method: "GET",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json"
-  //       },
-  //       credentials: "include"
-  //     });
-
-  //     const data = (await res).json();
-  //     setUserData(data);
-  //     //console.log((await res).status)
-  //     //const data = (await res).json();
-  //     const stat = (await res).status;
-  //     //const statjson = stat.j
-  //     console.log(userData);
-      
-  //     if(stat===200) {
-  //       console.log("welcome")
-  //     }else{
-  //       const error = new Error(res.error)
-  //       throw error;
-  //     }
-
- 
-  //   }catch(err){
-  //     console.log(err)
-  //     history.push('/Login')
-
-  //   }
-  // }
 
   const getMembership = async ()=>{
 
