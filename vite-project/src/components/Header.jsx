@@ -3,8 +3,8 @@ import { Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import logo from '../Photos/logo.png'
 import { UserContext } from '../App'
-import { useEffect } from "react";
-import {initialState} from "../Reducer/useReducer"
+//import { useEffect } from "react";
+//import {initialState} from "../Reducer/useReducer"
 
 
 
@@ -14,6 +14,8 @@ function Header() {
   const ref = useRef();
   const data = window.localStorage.getItem('STATUS_OF_LOGIN');
   const Status = JSON.parse(data)
+
+
   //console.log(Status);
   //console.log(state)
 
@@ -143,8 +145,8 @@ function Header() {
   
   return (
     <div>
-      <nav className="bg-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className= " bg-neutral-100 ">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-1">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -165,7 +167,7 @@ function Header() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
