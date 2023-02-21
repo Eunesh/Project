@@ -20,6 +20,7 @@ const Logout = () => {
             if (res){
                 dispatch({type:"USER", payload:false})
                 history.push('/Login')
+                history.go(0);
 
             }
             // //console.log(res.status);

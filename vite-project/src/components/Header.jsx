@@ -1,8 +1,9 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import logo from '../Photos/logo.png'
-import { UserContext } from '../App'
+import { UserContext } from '../App';
+import axios from "axios";
 //import { useEffect } from "react";
 //import {initialState} from "../Reducer/useReducer"
 
@@ -14,7 +15,10 @@ function Header() {
   const ref = useRef();
   const data = window.localStorage.getItem('STATUS_OF_LOGIN');
   const Status = JSON.parse(data)
+  axios.defaults.withCredentials = true //making axios with credentials true for cookies
 
+  
+  
 
   //console.log(Status);
   //console.log(state)
@@ -36,6 +40,31 @@ function Header() {
   
   const RenderMenu = ()=>{ 
     if(Status){
+      const [userData, setUserData] = useState({});
+      const getMembership = async ()=>{
+
+        try{
+          const res = await axios.get("/membership", {
+            headers: {
+              Accept: "application/json",
+              'Content-Type': 'application/json',
+            }
+          }
+          )
+         // console.log(res.data.name);
+         setUserData(res.data);
+          
+        }catch(err){
+          console.log(err)
+        }   
+      }
+
+      useEffect(()=>{
+        //callMembership();
+        getMembership();
+     }, []);
+    
+
       return (
         <>
                     <NavLink to="/"
@@ -55,6 +84,11 @@ function Header() {
                     >
                       Logout
                     </NavLink>
+
+                    <a  
+                    className="text-black   px-3 py-2 rounded-md text-sm font-medium  ">
+                      welcome: {userData.name}
+                    </a>
         </>
       )
     }else{

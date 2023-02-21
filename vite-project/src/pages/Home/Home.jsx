@@ -10,7 +10,7 @@ export default function Home() {
        
        {/* <Card/> */}
        <Steps/>
-       <Hero/>
+       {/* <Hero/> */}
         {/* <div className="artboard artboard-horizontal phone-5">
         <Carousel/>
         </div> */}
