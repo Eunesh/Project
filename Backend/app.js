@@ -3,6 +3,8 @@ const express = require("express");
 //const cors = require("cors")
 const app = express();
 
+//const stripe = require("stripe"("")); // To do
+
 
 
 

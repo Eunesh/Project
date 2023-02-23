@@ -2,6 +2,8 @@ import React from 'react'
 import { useState,useEffect,useReducer } from 'react'
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
+// import KhaltiCheckout from "khalti-checkout-web";
+// import { useTransition } from "react"
 
 function Membership() {
   
@@ -39,7 +41,7 @@ function Membership() {
 
 
 
-    const Names = [{name: "Big Dragon", id: 0, skill: "Can Kill Person with One Punch"}, {name: "David", id: 1, skill: "Can do 2000000 pullups like boss"}]
+    const Names = [{name: "david", id: 0, skill: "ok"}, {name: "David", id: 1, skill: "joke"}]
     const [bio, setMyBio] = useState(Names);
 
 

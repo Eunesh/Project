@@ -3,8 +3,7 @@ import reactLogo from './assets/react.svg'
 import {Route, Switch } from "react-router-dom";
 import Header from './components/Header'
 import Home from './pages/Home/Home'
-import More from './pages/More'
-import Footer from './pages/Footer/footer';
+import Khalti from './Khalti/Khalti'
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Membership from './pages/Membership';
@@ -20,6 +19,8 @@ const Routing = ()=>{
   <Route path="/Login" component={Login}/>
   <Route path="/Membership" component={Membership}/>
   <Route path="/Logout" component={Logout}/>
+  <Route path ='/khalti' component={Khalti}/>
+
 </Switch>
 }
 

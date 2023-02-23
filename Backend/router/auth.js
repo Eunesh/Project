@@ -6,6 +6,7 @@ const User = require("../models/userSchema");
 const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/Authenticate');
 const cookieParser = require("cookie-parser");
+const axios = require('axios');
 
 router.use(cookieParser());
 
@@ -43,6 +44,7 @@ router.post('/register', async (req, res)=>{
 
 })
 
+
 router.post('/login', async (req, res)=>{
  try{
     const {email, password} = req.body;
@@ -54,6 +56,7 @@ router.post('/login', async (req, res)=>{
 
     const userLogin = await User.findOne({email:email})
     //console.log(userLogin);
+
 
     if (userLogin){
         //console.log(userLogin.password)
@@ -99,6 +102,37 @@ router.get('/logout', (req,res)=>{
     res.status(200).send('UserLogout')
   
 })
+
+// for khalti payment verification
+router.post('/verify_payment', (req,res)=>{
+    try{
+        const {token, amount} = req.body;
+        // console.log(token);
+        // res.send("ok got it")
+        let data = {
+            "token": token,
+            "amount": amount
+          };
+          
+          let config = {
+            headers: {'Authorization': 'Key test_secret_key_5c35ed14b804428b87fcc547855605b6'}
+          };
+          
+          axios.post("https://khalti.com/api/v2/payment/verify/", data, config)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+
+    }catch(err){
+
+    }
+})
+
+
 module.exports= router;
 
 
