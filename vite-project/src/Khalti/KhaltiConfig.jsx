@@ -1,6 +1,8 @@
 import myKey from './KhaltiKeys'
 import axios from "axios";
 
+
+
 //   function verifyPayment() {
 //     axios.post('/verify_payments', {
 //         // token: data.token,
@@ -29,7 +31,7 @@ let config = {
         };
         // console.log(data.token);
         // verifyPayment();
-
+        axios.defaults.withCredentials = true
         axios.post('/verify_payment', {
             token: data.token,
             amount: data.amount

@@ -39,6 +39,7 @@ export default function Signup() {
         const {name, email, password} = state;
          const res= await fetch("/register", {
             method: "POST",
+            // credentials: 'include',
             headers: {
                 "Content-Type" : "application/json"
             },

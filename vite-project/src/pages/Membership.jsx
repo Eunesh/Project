@@ -2,6 +2,7 @@ import React from 'react'
 import { useState,useEffect,useReducer } from 'react'
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
+import Khalti from '../Khalti/Khalti'
 // import KhaltiCheckout from "khalti-checkout-web";
 // import { useTransition } from "react"
 
@@ -64,6 +65,7 @@ function Membership() {
 
         }
         </>
+        <Khalti/>
 
     </div>
   )

@@ -50,6 +50,6 @@ userSchema.methods.generateAuthToken = async function () {
 
 
 // collection creation
-const User = mongoose.model('MEMBER', userSchema );
+const User = mongoose.model('USER', userSchema );
 
 module.exports = User;
