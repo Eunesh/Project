@@ -7,7 +7,7 @@ export default function Khalti() {
 
   return (
     <div >
-      <button className="bg-purple-800 px-10 text-white border-stone-50 font-bold mt-32 ml-96" 
+      <button className="btn btn-active btn-primary ml-60"
         onClick={() => checkout.show({ amount: 10000 })}
       >
         Pay Via Khalti

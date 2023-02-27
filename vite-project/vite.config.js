@@ -10,6 +10,7 @@ export default defineConfig({
       '/membership': 'http://localhost:3000',
       '/logout': 'http://localhost:3000',
       '/verify_payment': 'http://localhost:3000',
+      '/membershipInfo': 'http://localhost:3000',
       
     }
 

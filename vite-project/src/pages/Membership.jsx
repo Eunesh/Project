@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import khalti from '../Photos/khalti.png'
 import { useState,useEffect,useReducer } from 'react'
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
@@ -7,11 +8,27 @@ import Khalti from '../Khalti/Khalti'
 // import { useTransition } from "react"
 
 function Membership() {
+  const [Data, setData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber:'',
+    age:'',
+    address:''
+  });
+
+  const handleChange = (event) => {
+    setData({
+      ...Data,
+      [event.target.name]: event.target.value
+    });
+  };
+
   
   axios.defaults.withCredentials = true //making axios with credentials true for cookies
 
   const history = useHistory()
 
+  // getting data to see if users is login or not
   const getMembership = async ()=>{
 
     try{
@@ -39,35 +56,107 @@ function Membership() {
        getMembership();
     }, []);
 
+    const handleSubmit = async (event) =>{
+      event.preventDefault();
 
+      try{
 
+       const {firstName, lastName, phoneNumber, age, address} = Data;
+    //console.log(email);
+    const res =  await axios.post('/membershipInfo', {
+      firstName,
+      lastName,
+      phoneNumber,
+      age,
+      address
+    })
 
-    const Names = [{name: "david", id: 0, skill: "ok"}, {name: "David", id: 1, skill: "joke"}]
-    const [bio, setMyBio] = useState(Names);
-
-
-    const remove = (id) => {
-       setMyBio(bio.filter((curElm)=>{
-          return curElm.id != id
-       }))
+    console.log(res);
+    if (res.status===200){
+      alert("your membership is successfull");
     }
+  }catch(err){
+    console.log(err)
+    alert("Please Complete your Payment Procedure first")
+  }
+      
+
+    
+}
+
+
+    
+
 
   return (
-    <div className='ml-10 mt-10 '>
-        <>
-        {
-            bio.map((value )=>{
-              //const [name, skill] = value;
-                return <h1 className=''>Name: {value.name} & skill: {value.skill}
-                <button onClick={()=>remove(value.id)} className='ml-10 mt-5 bg-blue-800 hover:bg-black text-white text-xs font-semibold py-3 px-9 border border-gray-400 rounded shadow transition-all'> Remove </button>
-                </h1>
-            })
-
-        }
-        </>
-        <Khalti/>
-
+  <div className='flex flex-row '>
+    <div className='flex flex-col bg-slate-200 w-8/12'>
+      <div>
+      <h1 className='mt-32 ml-32  text-xl text-red-600'>Payment Method:</h1>
+      <a className='mt-32 ml-32 text-xl'>Khalti </a>
+      <img className="h-80 w-80 object-cover ml-40 mt-10" src={khalti} alt=""/>
+      </div>
+      <Khalti/>
+      <h1 className='mt-32 ml-32 text-xl text-red-600'>Your Basic Information</h1>
+      <div className='flex flex-row mt-10'>
+      <input
+       type="text"
+       name="firstName"
+       id="firstName"
+       onChange={handleChange} 
+       placeholder="First Name" 
+       className="input input-bordered input-info w-full max-w-xs ml-10 bg-white" 
+       />
+      <input 
+      type="text"
+      name="lastName"
+      id="lastName" 
+      onChange={handleChange} 
+      placeholder="Last Name" 
+      className="input input-bordered input-info w-full max-w-xs ml-10 bg-white" 
+      />
+      </div>
+      <div className='flex flex-row mt-10'>
+      <input
+       type="text" 
+       name="phoneNumber"
+       id="phoneNumber"
+       onChange={handleChange} 
+       placeholder="Phone number" 
+       className="input input-bordered input-info w-full max-w-xs ml-10 bg-white" 
+       />
+      <input 
+      type="text" 
+      name="age"
+      id="age"
+      onChange={handleChange} 
+      placeholder="Age" 
+      className="input input-bordered input-info w-full max-w-xs ml-10 bg-white" 
+      />
+      </div>
+      <div className='flex flex-row mt-10'>
+      <input
+       type="text"
+       name="address"
+       id="address"
+       onChange={handleChange} 
+       placeholder="Address" 
+       className="input input-bordered input-info w-60 max-w-xs ml-10 bg-white" 
+       />
+       <button className="btn btn-wide mt-40"
+        onClick={handleSubmit}
+      >
+        Join Membership
+      </button>
+      </div>
+     
+     
     </div>
+    
+  {/* <div className='bg-black w-8/12'>
+     <h1>HIii</h1>
+  </div> */}
+</div>
   )
 }
 

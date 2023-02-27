@@ -3,9 +3,11 @@ const express = require("express");
 const router = express.Router();
 require('../db/conn');
 const User = require("../models/userSchema");
+const membersInformation = require("../models/MembersInfoSchema");
 const Payment_information = require("../models/paymentSchema");
 const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/Authenticate');
+const PaymentAuthenticate = require('../middleware/PaymentAuthenticate');
 const cookieParser = require("cookie-parser");
 const axios = require('axios');
 
@@ -164,21 +166,37 @@ router.post('/verify_payment', async (req,response)=>{
 
 
           }
+    }catch(err){
+        console.log(err)
 
+    }
+})
 
-        //   .then(response => {
-        //     console.log(response.data);
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
+router.post('/membershipInfo', PaymentAuthenticate, async (req, res)=>{
+    try{
+        const {firstName, lastName, phoneNumber, age, address} = req.body;
+        console.log(firstName);
+        console.log(lastName);
+        console.log(phoneNumber);
+        console.log(age);
+        console.log(address);
+
+        const  members_Information = new  membersInformation({ firstName, lastName, phoneNumber, age, address});
+        const  membersinfo = await  members_Information.save()
+
+        if (membersinfo) {
+            res.status(200).json({message: "You have successfully joined our gym membership"})
+        }else{
+            res.status(404).json({message: "You need to complete your payment"})
+        }
+        
+        
 
 
     }catch(err){
 
     }
 })
-
 
 module.exports= router;
 
