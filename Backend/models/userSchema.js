@@ -15,6 +15,27 @@ const userSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    date:{
+        type: Date,
+        default: new Date(+new Date() + 7*24*60*60*1000)
+    },
+    payments:[
+        {
+            payment_details: {
+                type: String,
+                required: true,
+            },
+            amount: {
+                type: Number,
+                required: true,
+        
+            },MembershipEnd:{
+                type: Date,
+                default: new Date(+new Date() + 200000)
+            },
+        }
+
+    ],
     tokens: [
         {
             token: {
@@ -42,6 +63,17 @@ userSchema.methods.generateAuthToken = async function () {
         this.tokens = this.tokens.concat({token: token});
         await this.save();
         return token
+    } catch(err){
+        console.log(err);
+    }
+}
+
+// storing the payment 
+userSchema.methods.addPaymen = async function (payment_details, amount) {
+    try{
+        this.payments = this.payments.concat({payment_details, amount});
+        await this.save();
+        return this.payments;
     } catch(err){
         console.log(err);
     }

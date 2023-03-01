@@ -1,5 +1,6 @@
 import myKey from './KhaltiKeys'
 import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -47,6 +48,9 @@ let config = {
       },
       onClose() {
         console.log("widget is closing");
+        const history = useHistory()
+        history.go(0);
+
       },
     },
     paymentPreference: [

@@ -20,8 +20,11 @@ const MembersInfoSchema = new mongoose.Schema({
     address: {
         type:String,
         required:true
-    }
+    },
+    // gender: "male"
 })
+
+// MembersInfoSchema.path('myCustomTTLField').index({ expires: 60 });
 
 const membersInformation = mongoose.model('MEMBERSINFORMATION',  MembersInfoSchema );
 
