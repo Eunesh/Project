@@ -232,6 +232,17 @@ router.post('/membershipInfo', authenticate, async (req, res)=>{
     }
 });
 
+router.get('/expiredmembership', authenticate , async (req,res)=>{
+    const paymentChecking = await User.findOne({_id: req.userID});
+
+    if (!paymentChecking.payments.length > 0) {
+        res.status(205).json({ message: "Payment not found" });
+        
+    }
+    
+  
+})
+
 module.exports= router;
 
 

@@ -1,13 +1,17 @@
 import React from 'react';
 import khalti from '../Photos/khalti.png'
-import { useState,useEffect,useReducer } from 'react'
+import { useState,useEffect,useReducer,useContext } from 'react'
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
 import Khalti from '../Khalti/Khalti'
+import { UserContext } from '../App'
 // import KhaltiCheckout from "khalti-checkout-web";
 // import { useTransition } from "react"
 
 function Membership() {
+  const {state, dispatch} = useContext(UserContext);
+  const data = window.localStorage.getItem('STATUS_OF_MEMBERSHIP');
+  const Status = JSON.parse(data)
   const [Data, setData] = useState({
     firstName: '',
     lastName: '',
@@ -50,12 +54,39 @@ function Membership() {
     }
     
   }
+  
+// For checking expired Membership and changing state 
+  const expiredMembership = async ()=>{
+
+    try{
+      const res = await axios.get("/expiredmembership", {
+        headers: {
+          Accept: "application/json",
+          'Content-Type': 'application/json',
+        }
+      }
+      )
+      console.log(res.status);
+      if(res.status === 205) {
+        dispatch({type:"MEMBERSHIP", membership:false});
+        console.log("your membership ended")
+        }
+    }catch(err){
+      console.log(err);
+
+    }
+
+
+  }
 
     useEffect(()=>{
        //callMembership();
        getMembership();
+       expiredMembership();
     }, []);
 
+
+    // After Submitting 
     const handleSubmit = async (event) =>{
       event.preventDefault();
 
@@ -73,6 +104,7 @@ function Membership() {
 
     console.log(res);
     if (res.status===200){
+      dispatch({type:"MEMBERSHIP", membership:true})
       alert("your membership is successfull");
     }
   }catch(err){
@@ -86,11 +118,19 @@ function Membership() {
 
 
     
-
-
+if (Status){
+  return(
+  <div>
+    <h1 className='px-20'>Congrats you are officially membered of OUR GYM</h1>
+  </div>
+  )
+}else{
   return (
-  <div className='flex flex-row '>
-    <div className='flex flex-col bg-slate-200 w-8/12'>
+  <div className='flex flex-col'>
+     <div className='mt-40'>
+      <a className='text-2xl px-80'>Membershiip Section</a>
+    </div>
+    <div className='flex flex-col  w-8/12'>
       <div>
       <h1 className='mt-32 ml-32  text-xl text-red-600'>Payment Method:</h1>
       <a className='mt-32 ml-32 text-xl'>Khalti </a>
@@ -158,6 +198,7 @@ function Membership() {
   </div> */}
 </div>
   )
+}
 }
 
 export default Membership
