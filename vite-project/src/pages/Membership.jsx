@@ -66,10 +66,10 @@ function Membership() {
         }
       }
       )
-      console.log(res.status);
+      // console.log(res.status);
       if(res.status === 205) {
         dispatch({type:"MEMBERSHIP", membership:false});
-        console.log("your membership ended")
+        // console.log("your membership ended")
         }
     }catch(err){
       console.log(err);
@@ -120,7 +120,7 @@ function Membership() {
     
 if (Status){
   return(
-  <div>
+  <div className='mt-56'>
     <h1 className='px-20'>Congrats you are officially membered of OUR GYM</h1>
   </div>
   )
@@ -128,15 +128,30 @@ if (Status){
   return (
   <div className='flex flex-col'>
      <div className='mt-40'>
-      <a className='text-2xl px-80'>Membershiip Section</a>
+      <a className='text-xl px-44 xl:px-96 xl:ml-32'>Princing and Plan</a>
     </div>
+    <div className="bg-white rounded overflow-hidden shadow-sm max-w-md mt-6 ml-10 xl:ml-96">
+      <div className='py-6 bg-black'>
+        <div className='font-serif text-xl mb-2 text-white px-36 '>Standered/Month</div>
+        <div className="text-white text-7xl ml-32 font-serif">Rs 100</div>
+        <div className="text-white text-xs ml-36 font-serif">Great for those who takes wellness</div>
+        <div className="text-white text-xs ml-52 font-serif">seriously</div>
+        <Khalti/>
+      </div>
+      <div className='py-5'>
+      <div className='font-serif ml-40 mt-6'>24/7 Gym access</div>
+      <div className='font-serif ml-36 mt-6'>Use of locker and shower</div>
+      <div className='font-serif ml-36 mt-6'>Access to trainer chatroom </div>
+      </div>
+    </div>
+
     <div className='flex flex-col  w-8/12'>
-      <div>
+      {/* <div>
       <h1 className='mt-32 ml-32  text-xl text-red-600'>Payment Method:</h1>
       <a className='mt-32 ml-32 text-xl'>Khalti </a>
       <img className="h-80 w-80 object-cover ml-40 mt-10" src={khalti} alt=""/>
-      </div>
-      <Khalti/>
+      </div> */}
+      {/* <Khalti/> */}
       <h1 className='mt-32 ml-32 text-xl text-red-600'>Your Basic Information</h1>
       <div className='flex flex-row mt-10'>
       <input
