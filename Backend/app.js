@@ -21,7 +21,7 @@ app.use(express.json()); //changing json data to objects
 //     credentials: true,
 // })
 // );
-app.use(require('./router/auth'));
+app.use(require('./router/routes'));
 
 
 

@@ -20,7 +20,6 @@ const Routing = ()=>{
   <Route path="/Login" component={Login}/>
   <Route path="/Membership" component={Membership}/>
   <Route path="/Logout" component={Logout}/>
-  <Route path ='/khalti' component={Khalti}/>
 
 </Switch>
 }

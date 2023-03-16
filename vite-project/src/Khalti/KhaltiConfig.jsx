@@ -14,8 +14,9 @@ import {useHistory} from 'react-router-dom';
 //         console.log(response);
 //       })
 // }
-
+// const history = useHistory()
 let config = {
+  
     // replace this key with yours
     publicKey: myKey.publicTestKey,
     productIdentity: "123766",
