@@ -79,16 +79,13 @@ function Header() {
                       Membership
                     </NavLink>
   
-                    {/* <NavLink to="/Logout"
+                    <NavLink to="/Chatroom"
                       className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
                     >
-                      Logout
-                    </NavLink> */}
+                      Chatroom
+                    </NavLink>
 
-                    {/* <a  
-                    className="text-black   px-3 py-2 rounded-md text-sm font-medium  ">
-                      welcome: {userData.name}
-                    </a> */}
+                   
                     <div className="dropdown dropdown-hover">
                       <label tabIndex={0} className="btn m-1 bg-black">Welcome</label>
                       <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white rounded-box w-52">

@@ -11,14 +11,10 @@ const paymentSchema = new mongoose.Schema({
         required: true,
 
     },
-    // payment_tokens: [
-    //     {
-    //         payment_token: {
-    //             type: String,
-    //             required:true
-    //         }
-    //     }
-    // ]
+    MembershipEnd:{
+        type: Date,
+        default: new Date(+new Date() + 200000)
+    },
 })
 
 

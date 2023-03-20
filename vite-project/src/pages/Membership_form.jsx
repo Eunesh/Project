@@ -1,6 +1,6 @@
 import React from "react";
 
-const Membership_form = () => {
+const Membership_form = (props) => {
   return (
     <div className="absolute bg-black/50 h-screen w-full">
       <div className="flex items-center justify-center mt-20">
@@ -14,7 +14,7 @@ const Membership_form = () => {
                 type="text"
                 name="firstName"
                 id="firstName"
-                onChange={handleChange}
+                onChange={props.change}
                 placeholder="First Name"
                 className="input input-bordered input-info w-full max-w-xs ml-10 bg-white"
               />
@@ -22,7 +22,7 @@ const Membership_form = () => {
                 type="text"
                 name="lastName"
                 id="lastName"
-                onChange={handleChange}
+                onChange={props.change}
                 placeholder="Last Name"
                 className="input input-bordered input-info w-full max-w-xs ml-10 mr-10 bg-white "
               />
@@ -32,7 +32,7 @@ const Membership_form = () => {
                 type="text"
                 name="phoneNumber"
                 id="phoneNumber"
-                onChange={handleChange}
+                onChange={props.change}
                 placeholder="Phone number"
                 className="input input-bordered input-info w-full max-w-xs ml-10 bg-white"
               />
@@ -40,7 +40,7 @@ const Membership_form = () => {
                 type="text"
                 name="age"
                 id="age"
-                onChange={handleChange}
+                onChange={props.change}
                 placeholder="Age"
                 className="input input-bordered input-info w-full max-w-xs ml-10 mr-10 bg-white"
               />
@@ -50,7 +50,7 @@ const Membership_form = () => {
                 type="text"
                 name="address"
                 id="address"
-                onChange={handleChange}
+                onChange={props.change}
                 placeholder="Address"
                 className="input input-bordered input-info w-[9.5rem] max-w-xs ml-10 bg-white"
               />
@@ -58,7 +58,7 @@ const Membership_form = () => {
 
             <button
               className="btn mt-10 ml-10 mr-10 mb-10"
-              onClick={handleSubmit}
+              onClick={props.submit}
             >
               Join Membership
             </button>

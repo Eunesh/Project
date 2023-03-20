@@ -119,12 +119,10 @@ router.get('/logout', (req,res)=>{
   
 })
 
-// for khalti payment verification
+// for khalti payment verification, adding payment details in our database and creating that user chat profile
 router.post('/verify_payment', authenticate,  async (req,response)=>{
     try{
         const {token, amount} = req.body;
-        // console.log(token);
-        // res.send("ok got it")
         let data = {
             "token": token,
             "amount": amount
@@ -144,93 +142,93 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
             const amount = res.data.amount;
 
             const exactUser = await User.findOne({_id: req.userID});
+            const username = exactUser.name
 
-            //console.log(exactUser);
             if (exactUser){
+                //Saving  payment details to Users database
                 const sendPayment = await exactUser.addPaymen(payment_details, amount);
                 await exactUser.save();
-                response.status(201).send('Payment Successfull')
+                //Again Saving payment details to payment information database 
+                const payment_Information = new  Payment_information({payment_details,amount });
+                await payment_Information.save()
 
+                // Creating that member user in our chat after they done payment
+                const user = await axios.put("https://api.chatengine.io/users/",
+                 {username:username, secret: username, first_name: username},
+                 {headers: {'Private-key':"6a434c03-1b1c-4f22-89e9-122e1c156410"}}
+                )
 
+                response.status(201).send('Payment Successfull') //
             }
-            // const amount = String(price)
-            // const paymentInformation = new Payment_information({ payment_details, amount});
-            // const Payment = await paymentInformation.save()
 
-            // let pay_token = jwt.sign({details:payment_details, price:amount}, process.env.SECRET_KEY_PAYMENT);
-            // console.log(pay_token);
+             // deleting payments field after  expired.
+            const deleteExpiredPayment = async ()=>{
+            const activePayment = exactUser.payments.filter(payment => payment.MembershipEnd >= new Date());
+            // If all the payments have expired, delete the payments array
+            if (activePayment.length === 0) {
+                exactUser.payments = [];
+              }
+            await exactUser.save()
+        }
 
-            // response.cookie("paymentoken", pay_token, {
-            //     expires:new Date(Date.now() + 25892000000),
-            //     httpOnly:true,
-            //     // sameSite: 'none', 
-            //     // secure: true
-            // })
+        // Schedule the function to run daily at midnight
+         cron.schedule('* * * * *', deleteExpiredPayment);        
 
-
-
-
-        //    if (Payment) {
-        //     console.log("stored")
-        //     response.status(200).json({message: "Payment Successfull"})
-        //    }else{
-        //     response.status(400).json({message: "Payment  unsucessfull"})
-        //    }
-
-
-
-          }
+        }
     }catch(err){
         console.log(err)
 
     }
 })
 
-router.post('/membershipInfo', authenticate, async (req, res)=>{
-    try {
-        const { firstName, lastName, phoneNumber, age, address } = req.body;
-        const paymentChecking = await User.findOne({_id: req.userID});
-        console.log(paymentChecking.payments.length);
+// router.post('/membershipInfo', authenticate, async (req, res)=>{
+//     try {
+//         const { firstName, lastName, phoneNumber, age, address } = req.body;
+//         const paymentChecking = await User.findOne({_id: req.userID});
+//         console.log(paymentChecking.payments.length);
 
-        if (paymentChecking.payments.length > 0) {
-            const members_Information = new membersInformation({ firstName, lastName, phoneNumber, age, address });
-            const membersinfo = await members_Information.save()
+//         if (paymentChecking.payments.length > 0) {
+//             const members_Information = new membersInformation({ firstName, lastName, phoneNumber, age, address });
+//             const membersinfo = await members_Information.save()
 
-            // const activePayments = paymentChecking.payments.filter(payment => payment.MembershipEnd >= new Date());
-            // //console.log(activePayments);
-            // // If all the payments have expired, delete the payments array
-            // if (activePayments.length === 0) {
-            //     paymentChecking.payments = [];
-            //   }
-            // await paymentChecking.save()
+//             if (membersinfo) {
+//                 // const authObject = {'Project-ID': "01a1f814-6792-49a6-acf0-2485658a8ed0", 'User-Name':firstName, 'User-Secret':firstName};
+//                 // const res = await axios.post("https://api.chatengine.io/chats/152154/people/", {headers: authObject} );
+              
+//                 // Creating that member user in our chat after they join our membership
+//                 const user = await axios.put("https://api.chatengine.io/users/",
+//                  {username:firstName, secret: firstName, first_name: firstName},
+//                  {headers: {'Private-key':"6a434c03-1b1c-4f22-89e9-122e1c156410"}}
+//                 )
 
-            if (membersinfo) {
-                res.status(200).json({ message: "You have successfully joined our gym membership" });
-            }
-            } else {
-                res.status(404).json({ message: "You need to complete your payment" });
-             }
+//              // Placing that newly created User into Trainer chat
+              
 
-        // deleting payments field after Membership expired.
-        const deleteExpiredMembership = async ()=>{
-            const activePayments = paymentChecking.payments.filter(payment => payment.MembershipEnd >= new Date());
-            //console.log(activePayments);
-            // If all the payments have expired, delete the payments array
-            if (activePayments.length === 0) {
-                paymentChecking.payments = [];
-              }
-            await paymentChecking.save()
-        }
+//                 res.status(200).json({ message: "You have successfully joined our gym membership" });
+//             }
+//             } else {
+//                 res.status(404).json({ message: "You need to complete your payment" });
+//              }
 
-        // Schedule the function to run daily at midnight
-         cron.schedule('* * * * *', deleteExpiredMembership);        
+//         // deleting payments field after Membership expired.
+//         const deleteExpiredMembership = async ()=>{
+//             const activePayments = paymentChecking.payments.filter(payment => payment.MembershipEnd >= new Date());
+//             // If all the payments have expired, delete the payments array
+//             if (activePayments.length === 0) {
+//                 paymentChecking.payments = [];
+//               }
+//             await paymentChecking.save()
+//         }
+
+//         // Schedule the function to run daily at midnight
+//          cron.schedule('* * * * *', deleteExpiredMembership);        
 
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Internal server error" });
-    }
-});
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// });
 
 router.get('/expiredmembership', authenticate , async (req,res)=>{
     const paymentChecking = await User.findOne({_id: req.userID});
@@ -239,9 +237,21 @@ router.get('/expiredmembership', authenticate , async (req,res)=>{
         res.status(205).json({ message: "Payment not found" });
         
     }
-    
-  
 })
+
+router.get('/startedmembership', authenticate , async (req,res)=>{
+    const paymentChecking = await User.findOne({_id: req.userID});
+
+    if (paymentChecking.payments.length > 0) {
+        res.status(201).json({ message: "Payment Found " });
+        
+    }
+})
+
+
+
+
+
 
 module.exports= router;
 

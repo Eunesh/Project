@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Membership from './pages/Membership';
 import Logout from './pages/Logout';
 import {initialState, reducer} from "./Reducer/useReducer"
+import Chatroom from './pages/Home/chatroom/Chatroom';
 
 
 export const UserContext = createContext(); 
@@ -20,6 +21,8 @@ const Routing = ()=>{
   <Route path="/Login" component={Login}/>
   <Route path="/Membership" component={Membership}/>
   <Route path="/Logout" component={Logout}/>
+  <Route path="/Chatroom" component={Chatroom}/>
+
 
 </Switch>
 }
