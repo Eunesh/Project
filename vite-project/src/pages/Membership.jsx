@@ -13,13 +13,13 @@ function Membership() {
   const { state, dispatch, } = useContext(UserContext);
   const data = window.localStorage.getItem("STATUS_OF_MEMBERSHIP");
   const Status = JSON.parse(data);
-  const [Data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    age: "",
-    address: "",
-  });
+  // const [Data, setData] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   phoneNumber: "",
+  //   age: "",
+  //   address: "",
+  // });
   // const [ShowModel, setShowModel] = useState(false)
   const [membered, setMembered] = useState();
  
@@ -56,40 +56,43 @@ function Membership() {
   };
 
   // For checking expired Membership and changing state
-  const expiredMembership = async () => {
-    try {
-      const res = await axios.get("/expiredmembership", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      // console.log(res.status);
-      if (res.status === 205) {
-        setMembered(false);
-        // dispatch({ type: "MEMBERSHIP", membership: false });
-        // // console.log("your membership ended")
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const expiredMembership = async () => {
+  //   try {
+  //     const res = await axios.get("/expiredmembership", {
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     // console.log(res.status);
+  //     if (res.status === 205) {
+  //       setMembered(false);
+  //       // dispatch({ type: "MEMBERSHIP", membership: false });
+  //       // // console.log("your membership ended")
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
 
     // For checking if user is membered or not
-    const startedMembership = async () => {
+    const checkMembership = async () => {
       try {
-        const res = await axios.get("/startedmembership", {
+        const res = await axios.get("/checkMembership", {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
         });
         // console.log(res.status);
-        if (res.status === 201) {
-          setMembered(true);
+        if (res.status === 205) {
+          setMembered(false);
           // dispatch({ type: "MEMBERSHIP", membership: false });
           // // console.log("your membership ended")
+        }
+        if(res.status === 206){
+          setMembered(true);
         }
       } catch (err) {
         console.log(err);
@@ -101,8 +104,8 @@ function Membership() {
   useEffect(() => {
     //callMembership();
     getMembership();
-    startedMembership();
-    expiredMembership();
+    checkMembership();
+    // expiredMembership();
   }, []);
 
   // After Submitting

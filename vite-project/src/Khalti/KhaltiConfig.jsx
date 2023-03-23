@@ -49,9 +49,9 @@ let config = {
       },
       onClose() {
         console.log("widget is closing");
-        // window.location.reload(false);
-        // const history = useHistory()
-        // history.go(0);
+        window.location.reload();
+        const history = useHistory()
+        history.go(0);
 
       },
     },

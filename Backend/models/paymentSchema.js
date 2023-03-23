@@ -11,6 +11,11 @@ const paymentSchema = new mongoose.Schema({
         required: true,
 
     },
+    // name:{
+    //     type: String,
+    //     required:true,
+
+    // },
     MembershipEnd:{
         type: Date,
         default: new Date(+new Date() + 200000)

@@ -11,8 +11,8 @@ export default defineConfig({
       '/logout': 'http://localhost:3000',
       '/verify_payment': 'http://localhost:3000',
       '/membershipInfo': 'http://localhost:3000',
-      '/expiredmembership': 'http://localhost:3000',
-      '/startedmembership': 'http://localhost:3000',
+      '/checkMembership': 'http://localhost:3000',
+      // '/startedmembership': 'http://localhost:3000',
       
     }
 

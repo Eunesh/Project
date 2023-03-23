@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: new Date(+new Date() + 7*24*60*60*1000)
     },
+    isPaid: {
+        type: Boolean,
+        default: false // default value is false
+      },
     payments:[
         {
             payment_details: {

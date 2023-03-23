@@ -142,15 +142,18 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
             const amount = res.data.amount;
 
             const exactUser = await User.findOne({_id: req.userID});
+            // console.log(exactUser);
+            await User.updateOne(
+                {_id:req.userID},
+                { $set: {isPaid:true}}
+
+            )
             const username = exactUser.name
 
             if (exactUser){
                 //Saving  payment details to Users database
                 const sendPayment = await exactUser.addPaymen(payment_details, amount);
                 await exactUser.save();
-                //Again Saving payment details to payment information database 
-                const payment_Information = new  Payment_information({payment_details,amount });
-                await payment_Information.save()
 
                 // Creating that member user in our chat after they done payment
                 const user = await axios.put("https://api.chatengine.io/users/",
@@ -158,17 +161,32 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
                  {headers: {'Private-key':"6a434c03-1b1c-4f22-89e9-122e1c156410"}}
                 )
 
+                // //Adding that created member in TrainerChatroom
+                // await axios.put("https://api.chatengine.io/chats/152154/people/",
+                // {headers: {'Project-ID':"01a1f814-6792-49a6-acf0-2485658a8ed0",'User-Name':username, 'User-Secret':username }}
+
+
+                // )
+
+
+
                 response.status(201).send('Payment Successfull') //
             }
 
              // deleting payments field after  expired.
             const deleteExpiredPayment = async ()=>{
             const activePayment = exactUser.payments.filter(payment => payment.MembershipEnd >= new Date());
+            // console.log(activePayment);
             // If all the payments have expired, delete the payments array
             if (activePayment.length === 0) {
-                exactUser.payments = [];
+                //exactUser.payments = [];
+                await User.updateOne(
+                    {_id:req.userID},
+                    { $set: {isPaid:false}}
+    
+                )
               }
-            await exactUser.save()
+             //await exactUser.save()
         }
 
         // Schedule the function to run daily at midnight
@@ -230,23 +248,30 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
 //     }
 // });
 
-router.get('/expiredmembership', authenticate , async (req,res)=>{
-    const paymentChecking = await User.findOne({_id: req.userID});
+router.get('/checkMembership', authenticate , async (req,res)=>{
+    const membershipChecking = await User.findOne({_id: req.userID});
+    // console.log(membershipChecking)
 
-    if (!paymentChecking.payments.length > 0) {
-        res.status(205).json({ message: "Payment not found" });
-        
+    if (membershipChecking.isPaid === false){
+        res.status(205).json({ message: "Membership ended" });
+    }else{
+        res.status(206).json({ message: "Membership not ended" });
     }
+
+    // if (!paymentChecking.payments.length > 0) {
+    //     res.status(205).json({ message: "Payment not found" });
+        
+    // }
 })
 
-router.get('/startedmembership', authenticate , async (req,res)=>{
-    const paymentChecking = await User.findOne({_id: req.userID});
+// router.get('/startedmembership', authenticate , async (req,res)=>{
+//     const paymentChecking = await User.findOne({_id: req.userID});
 
-    if (paymentChecking.payments.length > 0) {
-        res.status(201).json({ message: "Payment Found " });
+//     if (paymentChecking.payments.length > 0) {
+//         res.status(201).json({ message: "Payment Found " });
         
-    }
-})
+//     }
+// })
 
 
 
