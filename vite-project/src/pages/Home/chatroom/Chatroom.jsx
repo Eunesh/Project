@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useQuery} from 'react-query';
 import axios from "axios";
 import {ChatEngine} from 'react-chat-engine'; 
 import {MessageFormSocial} from 'react-chat-engine'; 
@@ -22,6 +23,16 @@ const Chatroom = () => {
     getMembership();
   }, []);
 
+  // const {isLoading, logindata}= useQuery('userData', async()=>{
+  //   const response = await axios.get("/membership");
+  //   return response;
+  // })
+
+  console.log(userData);
+ 
+
+
+  // console.log(logindata);
   if (!userData) {
     // Render a loading indicator until userData is set
     return <div>Loading...</div>;
@@ -44,8 +55,8 @@ const Chatroom = () => {
 
     <PrettyChatWindow
       projectId="01a1f814-6792-49a6-acf0-2485658a8ed0"
-      username={userData}
-      secret={userData}
+      username=""
+      secret=""
       style={{ height: '100%' }}
     />
   );

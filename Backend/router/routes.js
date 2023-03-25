@@ -139,7 +139,9 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
 
           if (res.status === 200){
             const payment_details = res.data.user.name;
-            const amount = res.data.amount;
+            const amountPaid = res.data.amount;
+
+            
 
             const exactUser = await User.findOne({_id: req.userID});
             // console.log(exactUser);
@@ -151,9 +153,23 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
             const username = exactUser.name
 
             if (exactUser){
-                //Saving  payment details to Users database
-                const sendPayment = await exactUser.addPaymen(payment_details, amount);
+                
+            if (amountPaid === 10000) {
+                const Type = 'Basic';
+                const sendPayment = await exactUser.addPaymen(payment_details, amountPaid, Type);
                 await exactUser.save();
+            } else if (amountPaid === 20000) {
+                const Type = 'Premium';
+                const sendPayment = await exactUser.addPaymen(payment_details, amountPaid, Type);
+                await exactUser.save();
+            }else if (amountPaid === 15000) {
+                const Type = 'Standered';
+                const sendPayment = await exactUser.addPaymen(payment_details, amountPaid, Type);
+                await exactUser.save();
+            }
+                //Saving  payment details to Users database
+                // const sendPayment = await exactUser.addPaymen(payment_details, amountPaid, type);
+                // await exactUser.save();
 
                 // Creating that member user in our chat after they done payment
                 const user = await axios.put("https://api.chatengine.io/users/",
@@ -176,7 +192,7 @@ router.post('/verify_payment', authenticate,  async (req,response)=>{
              // deleting payments field after  expired.
             const deleteExpiredPayment = async ()=>{
             const activePayment = exactUser.payments.filter(payment => payment.MembershipEnd >= new Date());
-            // console.log(activePayment);
+            //console.log(activePayment);
             // If all the payments have expired, delete the payments array
             if (activePayment.length === 0) {
                 //exactUser.payments = [];

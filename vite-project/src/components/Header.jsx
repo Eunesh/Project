@@ -115,6 +115,12 @@ function Header() {
                     >
                       SignUp
                     </NavLink>
+
+                    <NavLink to='/Trainer' 
+                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Become a Trainer
+                    </NavLink>
   
                     <NavLink to='/Login' 
                       className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"

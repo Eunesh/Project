@@ -11,6 +11,8 @@ import Logout from './pages/Logout';
 import {initialState, reducer} from "./Reducer/useReducer"
 import Chatroom from './pages/Home/chatroom/Chatroom';
 import Trainerchatroom from './pages/Home/chatroom/Trainerchatroom';
+import {QueryClientProvider, QueryClient} from 'react-query'
+import Trainer from './pages/Trainer';
 
 
 export const UserContext = createContext(); 
@@ -24,6 +26,7 @@ const Routing = ()=>{
   <Route path="/Logout" component={Logout}/>
   <Route path="/Chatroom" component={Chatroom}/>
   <Route path="/Tchatroom" component={Trainerchatroom}/>
+  <Route path="/Trainer" component={Trainer}/>
 
 
 </Switch>
@@ -33,14 +36,17 @@ const Routing = ()=>{
 
 function App() {
 const [state, dispatch] = useReducer(reducer, initialState);
+const queryClient = new QueryClient();
 
 
   return (
     <div className='bg-neutral-100 text-gray-800 '>
+    <QueryClientProvider client={queryClient}>
     <UserContext.Provider value={{state, dispatch}}>
       <Header/>
       <Routing/>
     </UserContext.Provider>
+    </QueryClientProvider>
     </div>
   )
 }

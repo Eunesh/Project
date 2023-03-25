@@ -33,7 +33,12 @@ const userSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
         
-            },MembershipEnd:{
+            },
+            Type: {
+                type: String,
+        
+            },
+            MembershipEnd:{
                 type: Date,
                 default: new Date(+new Date() + 200000)
             },
@@ -73,9 +78,9 @@ userSchema.methods.generateAuthToken = async function () {
 }
 
 // storing the payment 
-userSchema.methods.addPaymen = async function (payment_details, amount) {
+userSchema.methods.addPaymen = async function (payment_details, amount, Type) {
     try{
-        this.payments = this.payments.concat({payment_details, amount});
+        this.payments = this.payments.concat({payment_details, amount, Type});
         await this.save();
         return this.payments;
     } catch(err){

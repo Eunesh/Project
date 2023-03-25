@@ -1,5 +1,6 @@
 import React from "react";
 import khalti from "../Photos/khalti.png";
+import MembershipPlan from "./MembershiPlan"
 import { useState, useEffect, useReducer, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -152,34 +153,17 @@ function Membership() {
     );
   } else {
     return (
+    
       <div className="flex flex-col relative">
         <div className="mt-40">
           <a className="text-xl px-44 xl:px-96 xl:ml-32">Princing and Plan</a>
         </div>
-        <div className="bg-white rounded overflow-hidden shadow-sm max-w-md mt-6 ml-10 xl:ml-96">
-          <div className="py-6 bg-black">
-            <div className="font-serif text-xl mb-2 text-white px-36 ">
-              Standered/Month
-            </div>
-            <div className="text-white text-7xl ml-32 font-serif">Rs 100</div>
-            <div className="text-white text-xs ml-36 font-serif">
-              Great for those who takes wellness
-            </div>
-            <div className="text-white text-xs ml-52 font-serif">seriously</div>
-            {/* <button onClick={()=> setShowModel(true)}  className="text-white border">Get Started</button> */}
-            <Khalti />
-          </div>
-          <div className="py-5">
-            <div className="font-serif ml-40 mt-6">24/7 Gym access</div>
-            <div className="font-serif ml-36 mt-6">
-              Use of locker and shower
-            </div>
-            <div className="font-serif ml-36 mt-6">
-              Access to trainer chatroom{" "}
-            </div>
-          </div>
-        </div>
+        {/* <div className="flex flex-row"> */}
+        <MembershipPlan membershipType={"Standered/Month"} amount={15000} Price={"Rs 150"} feature={"Use of locker and shower"}/>
+        <MembershipPlan membershipType={"Basic/Month"} amount={10000} Price={"Rs 100"} feature={""}/>
+        <MembershipPlan membershipType={"Premium/Month"} amount={20000} Price={"Rs 200"} feature={"Access of every facility"}/>
          {/* {ShowModel && <Membership_form change={handleChange} submit={handleSubmit} />} */}
+        {/* </div> */}
       </div>
     );
   }
