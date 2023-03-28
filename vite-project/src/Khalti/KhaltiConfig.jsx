@@ -1,20 +1,10 @@
 import myKey from './KhaltiKeys'
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
+import Alert  from '../pages/Alerts/Alert';
 
 
 
-//   function verifyPayment() {
-//     axios.post('/verify_payments', {
-//         // token: data.token,
-//         // amount: data.amount
-//         payload
-//       })
-//       .then(function (response) {
-//         console.log(response);
-//       })
-// }
-// const history = useHistory()
 let config = {
   
     // replace this key with yours
@@ -39,19 +29,20 @@ let config = {
             amount: data.amount
           })
           .then(function (response) {
-            console.log(response);
+            if (response.status===201){
+              alert("payment done and please reload to see the changes")
+              
+            }
           })
       },
       // onError handler is optional
       onError(error) {
         // handle errors
         console.log(error);
+        alert(error);
       },
       onClose() {
         console.log("widget is closing");
-        // window.location.reload();
-        // const history = useHistory()
-        // history.go(0);
 
       },
     },
@@ -63,6 +54,8 @@ let config = {
       "SCT",
     ],
   };
+
+
   
   export default config;
   

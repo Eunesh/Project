@@ -1,24 +1,19 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
-import logo from '../Photos/logo.png'
-import { UserContext } from '../App';
+import logo from "../Photos/logo.png";
+import { UserContext } from "../App";
 import axios from "axios";
 //import { useEffect } from "react";
 //import {initialState} from "../Reducer/useReducer"
 
-
-
 function Header() {
-  const {state, dispatch} = useContext(UserContext);
+  // const {state, dispatch} = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
-  const data = window.localStorage.getItem('STATUS_OF_LOGIN');
-  const Status = JSON.parse(data)
-  axios.defaults.withCredentials = true //making axios with credentials true for cookies
-
-  
-  
+  const data = window.localStorage.getItem("STATUS_OF_LOGIN");
+  const Status = JSON.parse(data);
+  axios.defaults.withCredentials = true; //making axios with credentials true for cookies
 
   //console.log(Status);
   //console.log(state)
@@ -33,183 +28,190 @@ function Header() {
   //   console.log(JSON.parse(data));
 
   // },)
-   
-  
-  
 
-  
-  const RenderMenu = ()=>{ 
-    if(Status){
+  const RenderMenu = () => {
+    if (Status) {
       const [userData, setUserData] = useState({});
-      const getMembership = async ()=>{
-
-        try{
+      const getMembership = async () => {
+        try {
           const res = await axios.get("/membership", {
             headers: {
               Accept: "application/json",
-              'Content-Type': 'application/json',
-            }
-          }
-          )
-         // console.log(res.data.name);
-         setUserData(res.data);
-          
-        }catch(err){
-          console.log(err)
-        }   
-      }
+              "Content-Type": "application/json",
+            },
+          });
+          // console.log(res.data.name);
+          setUserData(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
-      useEffect(()=>{
+      useEffect(() => {
         //callMembership();
         getMembership();
-     }, []);
-    
+      }, []);
 
       return (
         <>
-                    <NavLink to="/"
-                      className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Home
-                    </NavLink>
-  
-                    <NavLink to="/Membership"
-                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Membership
-                    </NavLink>
-  
-                    <NavLink to="/Chatroom"
-                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
-                    >
-                      Chatroom
-                    </NavLink>
+          <NavLink
+            to="/"
+            className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Home
+          </NavLink>
 
-                   
-                    <div className="dropdown dropdown-hover">
-                      <label tabIndex={0} className="btn m-1 bg-black">Welcome</label>
-                      <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white rounded-box w-52">
-                         <li><a>{userData.name}</a></li>
-                         <li>
-                         <NavLink to="/Logout"
-                          className="text-black hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
-                          >
-                          Logout
-                        </NavLink>
-                         </li>
-                      </ul>
-                   </div>
-        </>
-      )
-    }else{
-      return (
-        <>
-                    <NavLink to="/"
-                      className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Home
-                    </NavLink>
-  
-                    <NavLink to="/signUp"
-                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      SignUp
-                    </NavLink>
+          <NavLink
+            to="/Membership"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Membership
+          </NavLink>
 
-                    <NavLink to='/Trainer' 
-                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Become a Trainer
-                    </NavLink>
-  
-                    <NavLink to='/Login' 
-                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Login
-                    </NavLink>
-  
-                    <NavLink to="/Membership"
-                      className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Membership
-                    </NavLink>
-  
-        </>
-      )
-    }
-  }
+          <NavLink
+            to="/Chatroom"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
+          >
+            Chatroom
+          </NavLink>
 
-  const RenderMenuForMobile = ()=>{
-    if (Status) {
-      return(
-        <>
-               <NavLink to="/"
-                  className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Home
-                </NavLink>
-
-                <NavLink to="/Membership"
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Membership
-                </NavLink>
-
-                <NavLink to="/Logout"
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+          <div className="dropdown dropdown-hover">
+            <label tabIndex={0} className="btn m-1 bg-black">
+              Welcome
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-white rounded-box w-52"
+            >
+              <li>
+                <a>{userData.name}</a>
+              </li>
+              <li>
+                <NavLink
+                  to="/Logout"
+                  className="text-black hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
                 >
                   Logout
                 </NavLink>
+              </li>
+            </ul>
+          </div>
         </>
-      )
-    }else{
-      return(
+      );
+    } else {
+      return (
         <>
-               <NavLink to="/"
-                  className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Home
-                </NavLink>
+          <NavLink
+            to="/"
+            className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Home
+          </NavLink>
 
-                <NavLink to="/login"
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Login
-                </NavLink>
+          <NavLink
+            to="/signUp"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Signup
+          </NavLink>
 
-                <NavLink to="/signUp"
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Signup
-                </NavLink>
+          <NavLink
+            to="/Login"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Login
+          </NavLink>
 
-                <NavLink to="/Membership" 
-                  className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Membership
-                </NavLink>
+          <NavLink
+            to="/Membership"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Membership
+          </NavLink>
         </>
-      )
+      );
     }
-  }
-  
+  };
+
+  const RenderMenuForMobile = () => {
+    if (Status) {
+      return (
+        <>
+          <NavLink
+            to="/"
+            className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/Membership"
+            className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Membership
+          </NavLink>
+
+          <NavLink
+            to="/Logout"
+            className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Logout
+          </NavLink>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <NavLink
+            to="/"
+            className="hover:scale-90 transform transition-all text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/login"
+            className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Login
+          </NavLink>
+
+          <NavLink
+            to="/signUp"
+            className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Signup
+          </NavLink>
+
+          <NavLink
+            to="/Membership"
+            className="text-black hover:scale-90 transform transition-all hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Membership
+          </NavLink>
+        </>
+      );
+    }
+  };
+
   return (
     <div>
-      <nav className= " bg-neutral-100 ">
+      <nav className=" bg-neutral-100 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-1">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <img
-                  className="h-14 w-16 mt-16 scale-150 hover:rotate-180 transform transition-all "
+                {/* <img
+                  className="h-14 w-16 mt-2"
                   src={logo}
                   alt="Workflow"
                   
-                />
+                /> */}
+                <p className="h-14 w-16 mt-2">OUR GYM</p>
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <RenderMenu/>
+                  <RenderMenu />
                 </div>
               </div>
             </div>
@@ -272,7 +274,7 @@ function Header() {
           {() => (
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <RenderMenuForMobile/>
+                <RenderMenuForMobile />
               </div>
             </div>
           )}

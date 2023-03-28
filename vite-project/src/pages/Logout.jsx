@@ -19,7 +19,7 @@ const Logout = () => {
             )
             if (res){
                 dispatch({type:"USER", payload:false})
-                history.push('/Login')
+                history.push('/')
                 history.go(0);
 
             }

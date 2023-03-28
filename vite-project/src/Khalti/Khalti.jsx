@@ -8,7 +8,7 @@ export default function Khalti(props) {
   return (
     <div >
       <button className="btn btn-active btn-primary ml-40 mt-6"
-        onClick={() => checkout.show({ amount: props.amount })}
+        onClick={() => checkout.show({ amount: props.amount })} 
       >
         Pay Via Khalti
       </button>

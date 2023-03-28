@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import {TrainerSignupSchema} from './Schema/Schema'
+import {Schema} from './Schema/Schema'
+import axios from "axios";
 
 const initialValues = {
     name:"",
@@ -14,14 +15,20 @@ const Trainer = () => {
 
     const {values, errors, touched, handleBlur, handleChange, handleSubmit} =useFormik({
         initialValues: initialValues,
-        validationSchema: TrainerSignupSchema,
-        onSubmit: (values) =>{
-            console.log(values)
-        }
+        validationSchema: Schema,
+        onSubmit: async (values) => {
+            try {
+              const res = await axios.post("/trainerRegister", values);
+              console.log(res.data); // Log the server response
+            } catch (error) {
+              console.error(error);
+            }
+          },
     });
-    console.log(errors);
 
-    // console.log(values)
+   
+
+
     return (
         <div className="flex justify-center items-center h-screen bg-gray-500 bg-opacity-50">
           <div className="w-full max-w-xs p-8 bg-white shadow-md rounded">

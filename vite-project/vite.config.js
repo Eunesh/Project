@@ -12,6 +12,7 @@ export default defineConfig({
       '/verify_payment': 'http://localhost:3000',
       '/membershipInfo': 'http://localhost:3000',
       '/checkMembership': 'http://localhost:3000',
+      '/trainerRegister': 'http://localhost:3000',
       // '/startedmembership': 'http://localhost:3000',
       
     }
