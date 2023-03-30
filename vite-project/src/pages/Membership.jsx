@@ -1,6 +1,5 @@
 import React from "react";
 import MembershipPlan from "./MembershiPlan";
-import Alert from "./Alerts/Alert";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";

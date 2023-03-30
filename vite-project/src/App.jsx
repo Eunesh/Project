@@ -38,7 +38,9 @@ function App() {
 
   useEffect(() => {
     setShowHeader(
-      !["/Admin", "/Login", "/signUp", "/Trainer"].includes(location.pathname)
+      !["/Admin", "/Login", "/signUp", "/Trainer", "/Tchatroom"].includes(
+        location.pathname
+      )
     );
   }, [location]);
 

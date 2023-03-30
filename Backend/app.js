@@ -3,17 +3,9 @@ const express = require("express");
 //const cors = require("cors")
 const app = express();
 
-//const stripe = require("stripe"("")); // To do
+dotenv.config({ path: "./config.env" });
 
-
-
-
-dotenv.config({ path: './config.env'});
-
-//require('./db/conn');  
-
-const PORT = process.env.PORT
-
+const PORT = process.env.PORT;
 
 app.use(express.json()); //changing json data to objects
 // app.use(cors({
@@ -21,17 +13,10 @@ app.use(express.json()); //changing json data to objects
 //     credentials: true,
 // })
 // );
-app.use(require('./router/routes'));
+app.use(require("./router/routes"));
+app.use(require("./router/paymentRoutes"));
+app.use(require("./router/trainersRoutes"));
 
-
-
-
-
-
-// app.get("/", (req, res)=>{
-//     res.send("Hellow from server app");
-// })
-
-app.listen(PORT, ()=>{
-    console.log(`Listining the Port at ${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`Listining the Port at ${PORT}`);
+});

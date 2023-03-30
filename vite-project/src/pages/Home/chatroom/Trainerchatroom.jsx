@@ -1,6 +1,7 @@
-import React from 'react';
-import './Chatroom.css';
-import {ChatEngine} from 'react-chat-engine';
+import React from "react";
+import "./Chatroom.css";
+import { ChatEngine } from "react-chat-engine";
+import { MessageFormSocial } from "react-chat-engine";
 
 const Trainerchatroom = () => {
   return (
@@ -11,9 +12,9 @@ const Trainerchatroom = () => {
       // userSecret={userData}
       userName="Trainer1"
       userSecret="12345"
+      renderNewMessageForm={() => <MessageFormSocial />}
     />
-    
-  )
-}
+  );
+};
 
-export default Trainerchatroom
+export default Trainerchatroom;
