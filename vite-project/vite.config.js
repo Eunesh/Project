@@ -16,6 +16,12 @@ export default defineConfig({
       "/trainersData": "http://localhost:3000",
       "/varifyTrainers": "http://localhost:3000",
       "/removeTrainers": "http://localhost:3000",
+      "/usersData": "http://localhost:3000",
+      "/deleteUser": "http://localhost:3000",
+      "/adminAuthentication": "http://localhost:3000",
+      "/AdminPasswordUpdate": "http://localhost:3000",
+      "/UserPasswordUpdate": "http://localhost:3000",
+
       // '/startedmembership': 'http://localhost:3000',
     },
   },

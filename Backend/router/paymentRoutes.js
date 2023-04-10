@@ -5,6 +5,7 @@ const User = require("../models/userSchema");
 require("../db/conn");
 const axios = require("axios");
 const authenticate = require("../middleware/Authenticate");
+const nodemailer = require("nodemailer");
 
 // for khalti payment verification, adding payment details in our database and creating that user chat profile
 router.post("/verify_payment", authenticate, async (req, response) => {
@@ -65,22 +66,13 @@ router.post("/verify_payment", authenticate, async (req, response) => {
           );
           await exactUser.save();
         }
-        //Saving  payment details to Users database
-        // const sendPayment = await exactUser.addPaymen(payment_details, amountPaid, type);
-        // await exactUser.save();
 
-        // Creating that member user in our chat after they done payment
+        //Creating that member user in our chat after they done payment
         // const user = await axios.put(
         //   "https://api.chatengine.io/users/",
         //   { username: username, secret: username, first_name: username },
-        //   { headers: { "Private-key": "6a434c03-1b1c-4f22-89e9-122e1c156410" } }
+        //   { headers: { "Private-key": "0af33370-2830-4975-92f8-d6291e6887db" } }
         // );
-
-        // //Adding that created member in TrainerChatroom
-        // await axios.put("https://api.chatengine.io/chats/152154/people/",
-        // {headers: {'Project-ID':"01a1f814-6792-49a6-acf0-2485658a8ed0",'User-Name':username, 'User-Secret':username }}
-
-        // )
 
         response.status(201).send("Payment Successfull"); //
       } else {
@@ -92,6 +84,7 @@ router.post("/verify_payment", authenticate, async (req, response) => {
         const activePayment = exactUser.payments.filter(
           (payment) => payment.MembershipEnd >= new Date()
         );
+        // console.log("running cron");
         //console.log(activePayment);
         // If all the payments have expired, delete the payments array
         if (activePayment.length === 0) {
@@ -104,7 +97,7 @@ router.post("/verify_payment", authenticate, async (req, response) => {
         //await exactUser.save()
       };
 
-      // Schedule the function to run daily at midnight
+      // Schedule the function to run daily at midnight/
       cron.schedule("* * * * *", deleteExpiredPayment);
     }
   } catch (err) {

@@ -38,17 +38,19 @@ const Login = () => {
     });
     const data = await res.json();
 
-    console.log(res.status);
+    // console.log(res.status);
 
     if (res.status === 200) {
       dispatch({ type: "USER", payload: true });
-      history.push("/");
+      history.push("/Profile");
       toast("you are loggid in", {
         position: "top-center",
       });
     } else if (res.status === 201) {
       toast("You are logged in as Trainer");
       history.push("/Tchatroom");
+    } else if (res.status === 202) {
+      history.push("/AdminDashboard");
     } else {
       toast.error("Invalid Credeantials", {
         position: "top-center",
@@ -75,7 +77,7 @@ const Login = () => {
                     Your email
                   </label>
                   <input
-                    type="email"
+                    // type="email"
                     name="email"
                     id="email"
                     autoComplete="off"
@@ -127,7 +129,7 @@ const Login = () => {
           <img
             className="h-[100vh] w-[100vh] object-cover lg:w-[110vh] lg:h-[60vh] lg:mt-32 lg:mr-10 "
             src={img1}
-            alt=""
+            alt="login image"
           />
         </div>
       </div>

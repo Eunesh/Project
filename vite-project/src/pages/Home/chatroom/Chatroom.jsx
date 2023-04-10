@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ChatEngine } from "react-chat-engine";
 import { MessageFormSocial } from "react-chat-engine";
@@ -22,12 +22,20 @@ const Chatroom = () => {
     getMembership();
   }, []);
 
-  // const {isLoading, logindata}= useQuery('userData', async()=>{
-  //   const response = await axios.get("/membership");
-  //   return response;
-  // })
+  // fetch with rweact query
+  // const { data, isLoading, isError } = useQuery({
+  //   queryKey: ["membership"],
+  //   queryFn: async () => {
+  //     const response = await axios.get("/membership");
+  //     return response.data;
+  //   },
+  // });
 
-  console.log(userData);
+  // if (isLoading) {
+  //   return <h1>Loading...</h1>;
+  // }
+
+  // console.log(data);
 
   // console.log(logindata);
   if (!userData) {
@@ -40,7 +48,7 @@ const Chatroom = () => {
       <div className="shadow">
         <ChatEngine
           height="calc(100vh - 80px)"
-          projectID="01a1f814-6792-49a6-acf0-2485658a8ed0"
+          projectID="152a76ef-eba9-4d26-a92c-03c84dc973f7"
           userName={userData}
           userSecret={userData}
           // userName="unesh"

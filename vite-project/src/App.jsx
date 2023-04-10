@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useReducer } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home/Home";
 import Signup from "./pages/Signup";
@@ -9,9 +9,14 @@ import Logout from "./pages/Logout";
 import { initialState, reducer } from "./Reducer/useReducer";
 import Chatroom from "./pages/Home/chatroom/Chatroom";
 import Trainerchatroom from "./pages/Home/chatroom/Trainerchatroom";
-import { QueryClientProvider, QueryClient } from "react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import Trainer from "./pages/Trainer";
-import Admin from "./Admin/Admin";
+import AdminDashboard from "./Admin/AdminDashboard";
+import TrainerDetails from "./Admin/TrainerDetails";
+import UserDetails from "./Admin/UserDetails";
+import ActiveMembers from "./Admin/ActiveMembers";
+import Updatapassword from "./Admin/Updatapassword";
+import Profile from "./pages/Home/Profile/Profile";
 
 export const UserContext = createContext();
 
@@ -25,7 +30,12 @@ const Routing = () => {
       <Route path="/Logout" component={Logout} />
       <Route path="/Chatroom" component={Chatroom} />
       <Route path="/Tchatroom" component={Trainerchatroom} />
-      <Route path="/Admin" component={Admin} />
+      <Route path="/AdminDashboard" component={AdminDashboard} />
+      <Route path="/TrainerDetails" component={TrainerDetails} />
+      <Route path="/UserDetails" component={UserDetails} />
+      <Route path="/ActiveMember" component={ActiveMembers} />
+      <Route path="/Updatepassword" component={Updatapassword} />
+      <Route path="/Profile" component={Profile} />
     </Switch>
   );
 };
@@ -38,9 +48,17 @@ function App() {
 
   useEffect(() => {
     setShowHeader(
-      !["/Admin", "/Login", "/signUp", "/Trainer", "/Tchatroom"].includes(
-        location.pathname
-      )
+      ![
+        "/Login",
+        "/signUp",
+        "/Trainer",
+        "/Tchatroom",
+        "/AdminDashboard",
+        "/TrainerDetails",
+        "/UserDetails",
+        "/ActiveMember",
+        "/Updatepassword",
+      ].includes(location.pathname)
     );
   }, [location]);
 

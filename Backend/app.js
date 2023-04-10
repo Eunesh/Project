@@ -16,6 +16,7 @@ app.use(express.json()); //changing json data to objects
 app.use(require("./router/routes"));
 app.use(require("./router/paymentRoutes"));
 app.use(require("./router/trainersRoutes"));
+app.use(require("./router/AdminRoutes"));
 
 app.listen(PORT, () => {
   console.log(`Listining the Port at ${PORT}`);

@@ -77,7 +77,7 @@ function Membership() {
           <a className="text-xl px-44 xl:px-96 xl:ml-32">Princing and Plan</a>
         </div>
 
-        <div className=" xl:flex items-center justify-center gap-5">
+        <div className=" xl:flex items-center justify-center gap-2">
           <div>
             <MembershipPlan
               membershipType={"Standered/Month"}

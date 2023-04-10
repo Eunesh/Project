@@ -1,23 +1,25 @@
-import React from 'react'
-import small from './photo/small.jpg'
+import React from "react";
+import profile from "./photo/profile.png";
 import { NavLink } from "react-router-dom";
 
 const Card = () => {
   return (
-<div className="card lg:card-side bg-base-100 shadow-xl mt-20 ml-24 w-10/12">
-  <figure><img src={small} alt="Album"/></figure>
-  <div className="card-body">
-    <h2 className="card-title text-white">Our<br/>GYM</h2>
-    <p className='text-white '>Seize the opportunity! It's time to get in<br/>the best shape of your life.</p>
-    <div className="card-actions justify-end">
-        <NavLink to='/signUp'>
-        <button className="btn btn-primary">Join</button>
-        </NavLink>
+    <div className="px-96 py-6">
+      <div className="card w-96 bg-black shadow-xl">
+        <figure className="px-10 pt-10">
+          <img src={profile} alt="Shoes" className="rounded-xl" />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title text-white">Your Information!!</h2>
+          <p className="text-white font-light">Name: Unesh</p>
+          <p className="text-white font-light">Email: Unesh@gmail.com</p>
+          <p className="text-white font-light">MembershipStart: </p>
+          <p className="text-white font-light">MembershipEnd: </p>
+          <p className="text-white font-light">MembershipType:</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  );
+};
 
-  )
-}
-
-export default Card
+export default Card;

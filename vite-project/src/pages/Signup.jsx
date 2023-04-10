@@ -30,9 +30,12 @@ export default function Signup() {
           if (res.status === 200) {
             history.push("/Login");
           } else if (res.status === 202) {
-            toast.success("You have successfully registered as Trainer", {
-              position: "top-center",
-            });
+            toast.success(
+              "You have successfully registered as Trainer but wait for Verification",
+              {
+                position: "top-center",
+              }
+            );
           } else if (res.status === 422) {
             toast.error("Your Email already exist", {
               position: "top-center",

@@ -54,27 +54,6 @@ function Header() {
 
       return (
         <>
-          <NavLink
-            to="/"
-            className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Home
-          </NavLink>
-
-          <NavLink
-            to="/Membership"
-            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Membership
-          </NavLink>
-
-          <NavLink
-            to="/Chatroom"
-            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
-          >
-            Chatroom
-          </NavLink>
-
           <div className="dropdown dropdown-hover">
             <label tabIndex={0} className="btn m-1 bg-black">
               Welcome
@@ -96,6 +75,27 @@ function Header() {
               </li>
             </ul>
           </div>
+
+          <NavLink
+            to="/Profile"
+            className=" hover:scale-125 transform transition-all text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Profile
+          </NavLink>
+
+          <NavLink
+            to="/Membership"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Membership
+          </NavLink>
+
+          <NavLink
+            to="/Chatroom"
+            className="text-black hover:scale-125 transform transition-all hover:text-black px-3 py-2 rounded-md text-sm font-medium  "
+          >
+            Chatroom
+          </NavLink>
         </>
       );
     } else {
@@ -210,7 +210,7 @@ function Header() {
                 <p className="h-14 w-16 mt-2">OUR GYM</p>
               </div>
               <div className="hidden md:block">
-                <div className="ml-10 flex items-baseline space-x-4">
+                <div className="ml-[790px] flex items-baseline space-x-4 ">
                   <RenderMenu />
                 </div>
               </div>
