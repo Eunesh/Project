@@ -28,7 +28,12 @@ export default function Signup() {
         try {
           const res = await axios.post("/register", values);
           if (res.status === 200) {
-            history.push("/Login");
+            toast.success("You have successfully regestered", {
+              position: "top-center",
+            });
+            setTimeout(() => {
+              history.push("/Login");
+            }, 3000); // 3000ms or 3 seconds delay before redirecting to /Login
           } else if (res.status === 202) {
             toast.success(
               "You have successfully registered as Trainer but wait for Verification",

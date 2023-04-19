@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
   res.send("Hellow from server");
 });
 
-//Register
+//Register for both Users and Trainers
 router.post("/register", async (req, res) => {
   const { name, email, password, confirm_password, checkboxField } = req.body;
 
@@ -49,11 +49,11 @@ router.post("/register", async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error.message });
   }
 });
 
-//Login
+//Login for user, trainer and Admin
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
 
     const userLogin = await User.findOne({ email: email });
     const trainerLogin = await trainerSchema.findOne({ email: email });
-    const adminLogin = await Admin.findOne({ email: email });
+    const adminLogin = await Admin.findOne({ username: email });
     // For user Login
     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.password); //comparing Password in database and password we get after login from user
@@ -84,9 +84,7 @@ router.post("/login", async (req, res) => {
     // For Trainer Login
     else if (trainerLogin) {
       const isMatch = await bcrypt.compare(password, trainerLogin.password); //comparing Password(hashed) in database and password we get after login from trainer
-      // const isVerified = trainerLogin.isVerified
-      // console.log(isVerified)
-      if (isMatch) {
+      if (isMatch && trainerLogin.isVerified === true) {
         const token = await trainerLogin.generateAuthTokenTrainer();
 
         res.cookie("trainertoken", token, {
@@ -95,8 +93,6 @@ router.post("/login", async (req, res) => {
         });
 
         res.status(201).json({ message: " Trainer Login sucessfull" });
-
-        //console.log(token);
       } else {
         res.status(400).json({ message: "Invalid Crediantialss" });
       }
@@ -179,6 +175,10 @@ router.post("/deleteUser", async (req, res) => {
 // For Changing the User Password
 router.post("/UserPasswordUpdate", authenticate, async (req, res) => {
   const { current_password, new_password } = req.body;
+
+  if (!current_password || !new_password) {
+    res.status(404).json({ message: "Please dont leave any field empty" });
+  }
   try {
     const userChecking = await User.findOne({ _id: req.userID });
     if (userChecking) {

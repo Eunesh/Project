@@ -33,6 +33,7 @@ router.post("/varifyTrainers", async (req, res) => {
   }
 });
 
+// For unverifiying Trainers
 router.post("/removeTrainers", async (req, res) => {
   try {
     const { id } = req.body;

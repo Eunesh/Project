@@ -1,23 +1,19 @@
 import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../App";
 
 const Logout = () => {
-  const { state, dispatch } = useContext(UserContext);
-  axios.defaults.withCredentials = true; //making axios with credentials true for cookies
   const history = useHistory();
   const getLogout = async () => {
     try {
-      const res = await axios.get("/logout", {
+      const res = await axios.get("/Adminlogout", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
       if (res) {
-        dispatch({ type: "USER", payload: false });
-        history.push("/");
+        history.push("/Login");
         history.go(0);
       }
       // //console.log(res.status);
@@ -34,7 +30,7 @@ const Logout = () => {
     getLogout();
   }, []);
 
-  return <h1>LogOut</h1>;
+  return <div>Logout</div>;
 };
 
 export default Logout;

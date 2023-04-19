@@ -11,14 +11,27 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    validate: {
+      validator: function (v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid email address`,
+    },
   },
   password: {
     type: String,
     required: true,
+    validate: {
+      validator: function (v) {
+        return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(v);
+      },
+      message: (props) =>
+        `${props.value} is not a valid password. Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, and one number.`,
+    },
   },
   date: {
     type: Date,
-    default: new Date(+new Date() + 7 * 24 * 60 * 60 * 1000),
+    default: new Date(+new Date()),
   },
   isPaid: {
     type: Boolean,
@@ -37,18 +50,14 @@ const userSchema = new mongoose.Schema({
       Type: {
         type: String,
       },
-      // MembershipEnd: {
-      //   type: Date,
-      //   default: () => new Date(+new Date() + 200000),
-      // },
       MembershipStart: {
         type: Date,
-        default: Date.now,
+        default: moment().toDate(),
       },
       MembershipEnd: {
         type: Date,
         default: function () {
-          return moment(this.MembershipStart).add(1, "minutes");
+          return moment(this.MembershipStart).add(5, "minutes");
         },
       },
     },

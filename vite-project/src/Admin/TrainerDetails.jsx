@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import Sidebar from "./Sidebar";
+import { ToastContainer, toast } from "react-toastify";
 
 const TrainerDetails = () => {
   const [data, setData] = useState([]);
@@ -32,8 +33,13 @@ const TrainerDetails = () => {
     });
 
     if (res.status === 201) {
-      alert("Trainer is verified");
-      window.location.reload(false);
+      toast.success("Trainer is Verified ", {
+        position: "top-center",
+      });
+
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 2000);
     }
   };
 
@@ -45,8 +51,12 @@ const TrainerDetails = () => {
     });
 
     if (res.status === 201) {
-      alert("Trainer is Removed");
-      window.location.reload(false);
+      toast.success("Trainer is removed", {
+        position: "top-center",
+      });
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 2000);
     }
   };
 
@@ -93,8 +103,9 @@ const TrainerDetails = () => {
                       className="px-5 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                       onClick={() => Remove(item._id)}
                     >
-                      Remove
+                      Unverify
                     </button>
+                    <ToastContainer />
                   </td>
                 </tr>
               );

@@ -42,15 +42,28 @@ const Login = () => {
 
     if (res.status === 200) {
       dispatch({ type: "USER", payload: true });
-      history.push("/Profile");
-      toast("you are loggid in", {
+      toast.success("you are loggid in", {
         position: "top-center",
       });
+      setTimeout(() => {
+        history.push("/Profile");
+      }, 3000); // 3000ms or 3 seconds delay before redirecting to /Login
     } else if (res.status === 201) {
-      toast("You are logged in as Trainer");
-      history.push("/Tchatroom");
+      toast.success("You are logged in as Trainer");
+      setTimeout(() => {
+        history.push("/Tchatroom");
+      }, 3000); // 3000ms or 3 seconds delay before redirecting to /Login
+      // history.push("/Tchatroom");
     } else if (res.status === 202) {
-      history.push("/AdminDashboard");
+      toast.success("you are loggid in as admin", {
+        position: "top-center",
+      });
+
+      setTimeout(() => {
+        history.push("/AdminDashboard");
+      }, 3000); // 3000ms or 3 seconds delay before redirecting to /Login
+
+      // history.push("/AdminDashboard");
     } else {
       toast.error("Invalid Credeantials", {
         position: "top-center",

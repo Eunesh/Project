@@ -1,6 +1,7 @@
 import React from "react";
 import KhaltiCheckout from "khalti-checkout-web";
 import config from "./khaltiConfig";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Khalti(props) {
   let checkout = new KhaltiCheckout(config);
@@ -13,6 +14,7 @@ export default function Khalti(props) {
       >
         Pay Via Khalti
       </button>
+      <ToastContainer />
     </div>
   );
 }

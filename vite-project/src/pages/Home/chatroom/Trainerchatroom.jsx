@@ -7,11 +7,11 @@ const Trainerchatroom = () => {
   return (
     <ChatEngine
       height="100vh"
-      projectID="01a1f814-6792-49a6-acf0-2485658a8ed0"
+      projectID="b4037c1a-ae4b-4d8e-b09a-66ee38ebd4d9"
       // userName={userData}
       // userSecret={userData}
-      userName="Trainer1"
-      userSecret="12345"
+      userName="Trainer"
+      userSecret="Trainer"
       renderNewMessageForm={() => <MessageFormSocial />}
     />
   );

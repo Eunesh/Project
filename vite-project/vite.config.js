@@ -21,6 +21,7 @@ export default defineConfig({
       "/adminAuthentication": "http://localhost:3000",
       "/AdminPasswordUpdate": "http://localhost:3000",
       "/UserPasswordUpdate": "http://localhost:3000",
+      "/Adminlogout": "http://localhost:3000",
 
       // '/startedmembership': 'http://localhost:3000',
     },

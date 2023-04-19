@@ -5,7 +5,10 @@ export const Schema = Yup.object({
     .min(6, "Password too small")
     .required("Please enter your password"),
   new_password: Yup.string()
-    .min(6, "Password too small")
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number and minimum of 8 length"
+    )
     .required("Please enter your password"),
   confirm_new_password: Yup.string()
     .required()

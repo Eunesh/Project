@@ -27,16 +27,12 @@ router.post("/verify_payment", authenticate, async (req, response) => {
       data,
       config
     );
-    console.log(res.data.user.name);
-    console.log(String(res.data.amount));
-    console.log(res.status);
 
     if (res.status === 200) {
       const payment_details = res.data.user.name;
       const amountPaid = res.data.amount;
 
       const exactUser = await User.findOne({ _id: req.userID });
-      // console.log(exactUser);
       await User.updateOne({ _id: req.userID }, { $set: { isPaid: true } });
       const username = exactUser.name;
 
@@ -68,11 +64,11 @@ router.post("/verify_payment", authenticate, async (req, response) => {
         }
 
         //Creating that member user in our chat after they done payment
-        // const user = await axios.put(
-        //   "https://api.chatengine.io/users/",
-        //   { username: username, secret: username, first_name: username },
-        //   { headers: { "Private-key": "0af33370-2830-4975-92f8-d6291e6887db" } }
-        // );
+        const user = await axios.put(
+          "https://api.chatengine.io/users/",
+          { username: username, secret: username, first_name: username },
+          { headers: { "Private-key": "d340a46e-8e2d-4150-8b5b-b7467b50662c" } }
+        );
 
         response.status(201).send("Payment Successfull"); //
       } else {
@@ -84,20 +80,15 @@ router.post("/verify_payment", authenticate, async (req, response) => {
         const activePayment = exactUser.payments.filter(
           (payment) => payment.MembershipEnd >= new Date()
         );
-        // console.log("running cron");
-        //console.log(activePayment);
-        // If all the payments have expired, delete the payments array
         if (activePayment.length === 0) {
-          //exactUser.payments = [];
           await User.updateOne(
             { _id: req.userID },
             { $set: { isPaid: false } }
           );
         }
-        //await exactUser.save()
       };
 
-      // Schedule the function to run daily at midnight/
+      // Schedule the function to run every minute
       cron.schedule("* * * * *", deleteExpiredPayment);
     }
   } catch (err) {

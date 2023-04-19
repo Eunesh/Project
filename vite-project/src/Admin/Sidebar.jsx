@@ -50,6 +50,12 @@ const Sidebar = () => {
           <HiDatabase />
           Update Password
         </NavLink>
+        <NavLink
+          to="/Adminlogout"
+          className="py-2 flex flex-row items-center hover:scale-90 transform transition-all"
+        >
+          Logout
+        </NavLink>
       </div>
     </div>
   );

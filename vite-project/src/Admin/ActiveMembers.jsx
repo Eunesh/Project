@@ -32,8 +32,6 @@ const ActiveMembers = () => {
     return lastPayment;
   });
 
-  console.log(paymentsData);
-
   return (
     <div className="flex flex-row">
       <div className="basis-1/5">
@@ -44,10 +42,19 @@ const ActiveMembers = () => {
           <thead className="bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-                Name
+                Name and Phone number
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-                Payment Details
+                Amount(inPaisa)
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                Membership Type
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                MembershipStart
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                MembershipEnd
               </th>
             </tr>
           </thead>
@@ -58,6 +65,12 @@ const ActiveMembers = () => {
                   <td className="text-xl px-5">{data.payment_details}</td>
                   <td className="text-xl px-5">{data.amount}</td>
                   <td className="text-xl px-5">{data.Type}</td>
+                  <td className="text-xl px-5">
+                    {new Date(data.MembershipStart).toLocaleDateString()}
+                  </td>
+                  <td className="text-xl px-5">
+                    {new Date(data.MembershipEnd).toLocaleDateString()}
+                  </td>
                 </tr>
               );
             })}

@@ -2,6 +2,7 @@ import myKey from "./KhaltiKeys";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Alert from "../pages/Alerts/Alert";
+import { ToastContainer, toast } from "react-toastify";
 
 let config = {
   // replace this key with yours
@@ -28,8 +29,15 @@ let config = {
         })
         .then(function (response) {
           if (response.status === 201) {
-            alert("payment done and please reload to see the changes");
-            window.location.reload(false);
+            toast.success("Payment Successfull", {
+              position: "top-center",
+            });
+            // alert("payment done and please reload to see the changes");
+            // window.location.reload(false);
+
+            setTimeout(() => {
+              window.location.reload(false);
+            }, 3000);
           }
         });
     },

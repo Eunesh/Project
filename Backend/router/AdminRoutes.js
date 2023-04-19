@@ -17,6 +17,10 @@ router.post("/AdminRegister", async (req, res) => {
 
 router.post("/AdminPasswordUpdate", AdminAuthenticate, async (req, res) => {
   const { current_password, new_password } = req.body;
+
+  if (!current_password || !new_password) {
+    res.status(404).json({ message: "Please Dont leave any fields empty" });
+  }
   try {
     const adminChecking = await Admin.findOne({ _id: req.userID });
     if (adminChecking) {
@@ -46,6 +50,12 @@ router.post("/AdminPasswordUpdate", AdminAuthenticate, async (req, res) => {
 router.get("/adminAuthentication", AdminAuthenticate, async (req, res) => {
   res.send(req.userID);
   //   res.status(200).json({ message: "Admin is Authenticate" });
+});
+
+//For Logout
+router.get("/Adminlogout", (req, res) => {
+  res.clearCookie("admintoken", { path: "/" });
+  res.status(200).send("UserLogout");
 });
 
 module.exports = router;

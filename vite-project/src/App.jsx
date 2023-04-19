@@ -17,6 +17,7 @@ import UserDetails from "./Admin/UserDetails";
 import ActiveMembers from "./Admin/ActiveMembers";
 import Updatapassword from "./Admin/Updatapassword";
 import Profile from "./pages/Home/Profile/Profile";
+import AdminLogout from "./Admin/AdminLogout";
 
 export const UserContext = createContext();
 
@@ -36,6 +37,7 @@ const Routing = () => {
       <Route path="/ActiveMember" component={ActiveMembers} />
       <Route path="/Updatepassword" component={Updatapassword} />
       <Route path="/Profile" component={Profile} />
+      <Route path="/Adminlogout" component={AdminLogout} />
     </Switch>
   );
 };

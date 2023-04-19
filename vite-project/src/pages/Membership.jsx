@@ -3,6 +3,7 @@ import MembershipPlan from "./MembershiPlan";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import img2 from "../Photos/img2.jpg";
 
 function Membership() {
   const data = window.localStorage.getItem("STATUS_OF_MEMBERSHIP");
@@ -42,11 +43,8 @@ function Membership() {
           "Content-Type": "application/json",
         },
       });
-      // console.log(res.status);
       if (res.status === 205) {
         setMembered(false);
-        // dispatch({ type: "MEMBERSHIP", membership: false });
-        // // console.log("your membership ended")
       }
       if (res.status === 206) {
         setMembered(true);
@@ -63,8 +61,8 @@ function Membership() {
 
   if (membered) {
     return (
-      <div className="mt-56">
-        <h1 className="px-20">
+      <div className="px-96 py-72">
+        <h1 className="px-24">
           Congrats you are officially membered of OUR GYM
         </h1>
       </div>
@@ -72,9 +70,26 @@ function Membership() {
   } else {
     return (
       <div className="flex flex-col relative min-h-screen">
-        {/* {successmsg &&<Alert/>} */}
-        <div className="mt-20">
-          <a className="text-xl px-44 xl:px-96 xl:ml-32">Princing and Plan</a>
+        <div className="relative bg-gray-900">
+          <div className="absolute inset-0">
+            <img
+              className="w-full h-full object-cover"
+              src={img2}
+              alt="Memberhip header Header"
+            />
+            <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+          </div>
+          <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
+              Please choose your desirable Membership plans from below
+            </h1>
+            <p className="mt-6 max-w-3xl text-xl text-gray-300">
+              You can effortlessly become a member of our gym by using Khalti,
+              the digital wallet. Simply click on the "Pay with Khalti" button,
+              fill out your information, and voila! You will become a member of
+              our gym.
+            </p>
+          </div>
         </div>
 
         <div className=" xl:flex items-center justify-center gap-2">
@@ -104,7 +119,6 @@ function Membership() {
               feature={"Access of every facility"}
             />
           </div>
-          {/* {ShowModel && <Membership_form change={handleChange} submit={handleSubmit} />} */}
         </div>
       </div>
     );

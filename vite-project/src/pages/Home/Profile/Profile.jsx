@@ -26,11 +26,6 @@ const Profile = () => {
   const lastPayment =
     payment.length > 0 ? payment[payment.length - 1] : payment[0]; // access the last object in the payments array, or the object at index 0 if there is only one object in the array
 
-  const MembershipEnd = lastPayment.MembershipEnd;
-  const End = new Date(MembershipEnd);
-  const MembershipStart = lastPayment.MembershipStart;
-  const Start = new Date(MembershipStart);
-  const MembershipType = lastPayment.Type;
   const isMember = userData.isPaid;
 
   return (
@@ -51,13 +46,15 @@ const Profile = () => {
             {isMember && (
               <>
                 <p className="text-white font-light">
-                  MembershipStart: {End.toLocaleDateString()}
+                  MembershipEnd:{" "}
+                  {new Date(lastPayment.MembershipEnd).toLocaleDateString()}
                 </p>
                 <p className="text-white font-light">
-                  MembershipEnd: {Start.toLocaleDateString()}
+                  MembershipStart:{" "}
+                  {new Date(lastPayment.MembershipStart).toLocaleDateString()}
                 </p>
                 <p className="text-white font-light">
-                  MembershipType: {MembershipType}
+                  MembershipType: {lastPayment.Type}
                 </p>
               </>
             )}

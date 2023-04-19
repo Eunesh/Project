@@ -210,7 +210,7 @@ function Header() {
                 <p className="h-14 w-16 mt-2">OUR GYM</p>
               </div>
               <div className="hidden md:block">
-                <div className="ml-[790px] flex items-baseline space-x-4 ">
+                <div className="ml-[56vw] flex items-baseline space-x-4 ">
                   <RenderMenu />
                 </div>
               </div>
